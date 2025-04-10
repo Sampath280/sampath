@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Static Web Apps Authentication</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 400px; margin: auto; }
+        button { padding: 10px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Login to Azure Static Web App</h2>
+    <div id="loginButtons"></div>
+    <h3 id="userInfo">Loading...</h3>
+
+    <script>
+        const providers = ["github", "twitter", "facebook", "aad", "google"];
+        const loginButtons = document.getElementById("loginButtons");
+
+        // Generate login buttons
+        providers.forEach(provider => {
+            const button = document.createElement("button");
+            button.innerText = `Login with ${provider}`;
+            button.onclick = () => window.location.href = `/.auth/login/${provider}`;
+            loginButtons.appendChild(button);
+        });
+
+        // Fetch user details after login
+        fetch("/.auth/me")
+            .then(response => response.json())
+            .then(data => {
+                const userInfo = document.getElementById("userInfo");
+                if (data.clientPrincipal) {
+                    userInfo.innerText = `Hello, ${data.clientPrincipal.userDetails}`;
+                    const logoutButton = document.createElement("button");
+                    logoutButton.innerText = "Logout";
+                    logoutButton.onclick = () => window.location.href = "/.auth/logout";
+                    loginButtons.appendChild(logoutButton);
+                } else {
+                    userInfo.innerText = "Not logged in";
+                }
+            })
+            .catch(() => {
+                document.getElementById("userInfo").innerText = "Error loading user info";
+            });
+    </script>
+
+</body>
+</html>

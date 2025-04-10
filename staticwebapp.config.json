@@ -1,0 +1,23 @@
+{
+    "auth": {
+      "identityProviders": {
+        "google": {
+          "registration": {
+              "clientIdSettingName": "GOOGLE_CLIENT_ID",
+        "clientSecretSettingName": "GOOGLE_CLIENT_SECRET"
+          }
+        }
+      }
+    },
+    "routes": [
+      {
+        "route": "/auth/*",
+        "allowedRoles": ["authenticated"]
+      },
+      {
+        "route": "/*",
+        "allowedRoles": ["anonymous"]
+      }
+    ]
+  }
+  
