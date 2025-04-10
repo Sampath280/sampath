@@ -1,1 +1,23 @@
-{"auth":{"rolesSource":"https://purple-island-0f0d0c10f.6.azurestaticapps.net/.auth/me","identityProviders":{"google":{"registration":{"clientIdSettingName":"GOOGLE_CLIENT_ID","clientSecretSettingName":"GOOGLE_CLIENT_SECRET_APP_SETTING_NAME"}}}},"routes":[{"route":"/auth/*","allowedRoles":["authenticated"]},{"route":"/*","allowedRoles":["anonymous"]}]}
+{
+  "auth": {
+    "rolesSource": "/.auth/me",
+    "identityProviders": {
+      "google": {
+        "registration": {
+          "clientIdSettingName": "GOOGLE_CLIENT_ID",
+          "clientSecretSettingName": "GOOGLE_CLIENT_SECRET"
+        }
+      }
+    }
+  },
+  "routes": [
+    {
+      "route": "/auth/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["anonymous"]
+    }
+  ]
+}
